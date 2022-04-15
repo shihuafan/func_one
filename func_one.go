@@ -4,14 +4,14 @@ import (
     "sync"
 )
 
-type MFunc struct {
+type mFunc struct {
     key       string
     f         func() interface{}
     listeners []chan interface{}
 }
 
 var (
-    funcMap = make(map[string]*MFunc)
+    funcMap = make(map[string]*mFunc)
     lock    = &sync.Mutex{}
 )
 
@@ -29,7 +29,7 @@ func insert(key string, f func() interface{}) chan interface{} {
         return ch
     }
     //没有的话创建一个
-    mfunc := &MFunc{
+    mfunc := &mFunc{
         key:       key,
         f:         f,
         listeners: []chan interface{}{ch},
